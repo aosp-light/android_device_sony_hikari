@@ -1,0 +1,6 @@
+#
+# Copyright (C) 2014 BPaul
+#
+
+# Still SEMC heh, later need change in kernel cmdline
+import /init.somc.rc
