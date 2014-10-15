@@ -229,13 +229,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     busybox
 
+# Recovery
+PRODUCT_PACKAGES += \
+    extract_elf_ramdisk
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
+    $(LOCAL_PATH)/recovery/rebootrecovery.sh:recovery/root/sbin/rebootrecovery.sh \
+    $(LOCAL_PATH)/recovery/bootrec-device:recovery/bootrec-device
+
 # GPS configuration
 PRODUCT_COPY_FILES += \
     device/somc/hazard/gps.conf:system/etc/gps.conf
-
-PRODUCT_PACKAGES += \
-    wpa_supplicant_overlay.conf \
-    p2p_supplicant_overlay.conf
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
