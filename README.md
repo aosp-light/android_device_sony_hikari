@@ -8,7 +8,7 @@ Here Sony Xperia acro Z device folder for build latest AOSP software
 ----------------------------
 - cd your_android_source_codes_dir
 - git clone git://github.com/paul-xxx/android_device_somc_hazard.git -b aosp-kk device/somc/hazard
-- git clone git://github.com/paul-xxx/android_kernel_somc_hazard.git -b aosp-3.7 kernel/somc/apq8060a (Still no available)
+- git clone git://github.com/paul-xxx/android_kernel_somc_hazard.git -b aosp-kk kernel/somc/hazard (Still no available)
 - And other components from this git repo
 
 3. Build ROM:
