@@ -30,7 +30,7 @@ COMMON_GLOBAL_CFLAGS += -DLEGACY_BLOB_COMPATIBLE
 TARGET_KERNEL_CONFIG := fuji_hikari_defconfig # Hikari like hazard
 TARGET_KERNEL_SOURCE := kernel/somc/msm8x60
 BOARD_KERNEL_BASE     := 0x40208000
-BOARD_MKBOOTIMG_ARGS  := --ramdisk_offset 0x04150000 --tags_offset 0x40208000
+BOARD_MKBOOTIMG_ARGS  := --ramdisk_offset 0x04150000 --base 0x40208000
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := # Hazard no support it
@@ -116,55 +116,11 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 RECOVERY_FSTAB_VERSION := 2
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 
-# Ota asserting
-TARGET_OTA_ASSERT_DEVICE := LT26,LT26w,hikari,LT26i,LT26ii,nozomi,hazard
-
 # Custom boot.img tool
-BOARD_CUSTOM_BOOTIMG_MK := device/sony/lt26/custombootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := device/somc/hazard/custombootimg.mk
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hazard
 
-# RIL
-BOARD_RIL_CLASS := ../../../device/somc/hikari/ril/
-
-BOARD_SEPOLICY_DIRS := \
-    device/somc/hazard/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    file_contexts \
-    property_contexts \
-    te_macros \
-    bluetooth_loader.te \
-    bridge.te \
-    camera.te \
-    device.te \
-    dhcp.te \
-    domain.te \
-    drmserver.te \
-    file.te \
-    kickstart.te \
-    init.te \
-    mac_update.te \
-    mediaserver.te \
-    mpdecision.te \
-    netmgrd.te \
-    qmux.te \
-    rild.te \
-    rmt.te \
-    surfaceflinger.te \
-    system.te \
-    tee.te \
-    thermald.te \
-    ueventd.te \
-    vold.te \
-    wpa_supplicant.te
-
 HAVE_ADRENO_SOURCE:= false
-
-# Disable adb RSA security and enable adb root when debug
-ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-ADDITIONAL_DEFAULT_PROPERTIES := ro.adb.secure=0	\
-	ro.secure=0
-endif
 
 -include vendor/somc/hazard/BoardConfigVendor.mk
