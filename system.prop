@@ -1,7 +1,7 @@
 
 # Ril
 rild.libpath=/system/lib/libril-qc-qmi-1.so
-ro.telephony.ril_class=SemcRIL8660
+#ro.telephony.ril_class=SemcRIL8660
 ro.telephony.ril.v3=skipnullaid,qcomdsds
 rild.libargs=-d /dev/smd0
 persist.rild.nitz_plmn=
@@ -26,10 +26,6 @@ ro.nfc.se.sim.enable=true
 ro.nfc.se.smx.enable=true
 ro.nfc.icon.enable=true
 ro.nfc.vendor.name=nxp
-
-# LTE enabled? :)
-telephony.lteOnCdmaDevice=0
-telephony.lteOnGsmDevice=1
 
 # Display
 #debug.sf.hw=1
