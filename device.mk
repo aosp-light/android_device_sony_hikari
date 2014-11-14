@@ -32,32 +32,6 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_PACKAGES := \
     lights.msm8660
 
-# Display
-PRODUCT_PACKAGES += \
-    libgenlock \
-    liboverlay \
-    hwcomposer.msm8660 \
-    gralloc.msm8660 \
-    memtrack.msm8660 \
-    copybit.msm8660
-
-# Media
-PRODUCT_PACKAGES += \
-    libdivxdrmdecrypt \
-    libOmxVdec \
-    libOmxVenc \
-    libOmxCore \
-    libstagefrighthw \
-    libc2dcolorconvert
-
-# Audio
-PRODUCT_PACKAGES += \
-    audio.primary.msm8660 \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    libaudio-resampler
-
 ifneq ($(findstring fuji, $(TARGET_PRODUCT)),)
 LOCAL_KERNEL := device/somc/hazard/kernel/kernel-fuji
 else
@@ -157,9 +131,9 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    libnetcmdiface
+    libnetcmdiface \
+    libwifi-hal-bcm
 
-#WIFI_BAND := 802_11_BG
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 
 PRODUCT_COPY_FILES += \
@@ -199,15 +173,18 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PACKAGES += com.android.future.usb.accessory
 
-# Voice processing
-PRODUCT_PACKAGES += libqcomvoiceprocessing
+# Audio effects
+PRODUCT_PACKAGES += \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    libqcomvoiceprocessingdescriptors \
+    libqcompostprocbundle
 
 PRODUCT_COPY_FILES += \
     device/somc/hazard/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 # Another blobs
 PRODUCT_COPY_FILES += \
-    device/somc/hazard/prebuilt/bootanimation.zip:system/media/bootanimation.zip \
     device/somc/hazard/config/clearpad_fwloader.sh:system/etc/clearpad_fwloader.sh \
     device/somc/hazard/config/flashled_calc_parameters.cfg:system/etc/flashled_calc_parameters.cfg \
     device/somc/hazard/config/hw_config.sh:system/etc/hw_config.sh \
@@ -230,27 +207,49 @@ PRODUCT_PACKAGES += \
     busybox
 
 # Recovery
-PRODUCT_PACKAGES += \
-    extract_elf_ramdisk
+#PRODUCT_PACKAGES += \
+#    extract_elf_ramdisk
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/busybox:root/sbin/busybox \
+    $(LOCAL_PATH)/recovery/extract_elf_ramdisk:$(PRODUCT_OUT)/utilities/extract_elf_ramdisk
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
     $(LOCAL_PATH)/recovery/rebootrecovery.sh:recovery/root/sbin/rebootrecovery.sh \
     $(LOCAL_PATH)/recovery/bootrec-device:recovery/bootrec-device
 
-# GPS configuration
-PRODUCT_COPY_FILES += \
-    device/somc/hazard/gps.conf:system/etc/gps.conf
-
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15
 
-# Enable AAC 5.1 output
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true
-
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
+
+# Display
+PRODUCT_PACKAGES += \
+    libgenlock \
+    liboverlay \
+    hwcomposer.msm8660 \
+    gralloc.msm8660 \
+    memtrack.msm8660 \
+    copybit.msm8660
+
+# Media
+PRODUCT_PACKAGES += \
+    libdivxdrmdecrypt \
+    libOmxVdec \
+    libOmxVenc \
+    libOmxCore \
+    libstagefrighthw \
+    libc2dcolorconvert
+
+# Audio
+PRODUCT_PACKAGES += \
+    audio.primary.msm8660 \
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libaudio-resampler
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)

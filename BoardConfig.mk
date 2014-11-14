@@ -27,8 +27,8 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 COMMON_GLOBAL_CFLAGS += -DLEGACY_BLOB_COMPATIBLE
 
 # Kernel
-TARGET_KERNEL_CONFIG := fuji_hikari_defconfig # Hikari like hazard
-TARGET_KERNEL_SOURCE := kernel/somc/msm8x60
+#TARGET_KERNEL_CONFIG := aosp_hazard_defconfig
+#TARGET_KERNEL_SOURCE := kernel/somc/msm8x60
 BOARD_KERNEL_BASE     := 0x40208000
 BOARD_MKBOOTIMG_ARGS  := --ramdisk_offset 0x04150000 --base 0x40208000
 BOARD_KERNEL_SEPARATED_DT := true
@@ -39,18 +39,15 @@ BOARD_KERNEL_CMDLINE := # Hazard no support it
 TARGET_BOARD_PLATFORM := msm8660
 TARGET_BOOTLOADER_BOARD_NAME := fuji
 TARGET_VENDOR_PLATFORM := fuji
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_BOOTLOADER_NAME=hazard
 TARGET_BOARD_INFO_FILE := device/somc/hazard/board-info.txt
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
-TARGET_BOOTLOADER_TYPE := fastboot
 BOARD_HAS_NO_MISC_PARTITION := true
 
 # Partition
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1056964608
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # BT
@@ -74,24 +71,21 @@ SOMC_CFG_SENSORS_HAVE_LIBAK8972 := yes
 SOMC_CFG_SENSORS_HAVE_LIBALS := yes
 SOMC_CFG_SENSORS_HAVE_LIBMPU3050 := yes
 
-# Wifi
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WLAN_DEVICE                := bcmdhd
-BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+# Wifi related defines
+WPA_SUPPLICANT_VERSION      := VER_0_8_X
+BOARD_WLAN_DEVICE           := bcmdhd
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/fw_bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_P2P		 := "/system/vendor/firmware/fw_bcmdhd.bin"
+BOARD_HOSTAPD_DRIVER        := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 
 # Display
 BOARD_EGL_CFG := device/somc/hazard/egl.cfg
 USE_OPENGL_RENDERER := true
 TARGET_USES_ION := true
-TARGET_USES_OVERLAY := true
-TARGET_USES_SF_BYPASS := true
 TARGET_USES_C2D_COMPOSITON := true
 
 # Camera
@@ -102,13 +96,11 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_USES_ALSA_AUDIO := true
 
 # Recovery
-DEVICE_RESOLUTION := 720x1280
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_FSTAB = device/somc/hazard/recovery.fstab
 TARGET_NO_SEPARATE_RECOVERY := true
 BOARD_HAS_NO_REAL_SDCARD := true
 TARGET_RECOVERY_PRE_COMMAND := "touch /cache/recovery/boot;sync;"
-TARGET_RECOVERY_INITRC := device/somc/hikari/recovery/init.rc
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_NO_USB_STORAGE := true
 BOARD_SDCARD_INTERNAL_DEVICE := /dev/block/mmcblk0p15
@@ -118,8 +110,6 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/
 
 # Custom boot.img tool
 BOARD_CUSTOM_BOOTIMG_MK := device/somc/hazard/custombootimg.mk
-
-BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hazard
 
 HAVE_ADRENO_SOURCE:= false
 
