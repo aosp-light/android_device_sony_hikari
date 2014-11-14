@@ -1,11 +1,11 @@
 #Common headers
-common_includes := device/somc/hikari/display/libgralloc
-common_includes += device/somc/hikari/display/liboverlay
-common_includes += device/somc/hikari/display/libcopybit
-common_includes += device/somc/hikari/display/libqdutils
-common_includes += device/somc/hikari/display/libhwcomposer
-common_includes += device/somc/hikari/display/libexternal
-common_includes += device/somc/hikari/display/libqservice
+common_includes := device/somc/hazard/display/libgralloc
+common_includes += device/somc/hazard/display/liboverlay
+common_includes += device/somc/hazard/display/libcopybit
+common_includes += device/somc/hazard/display/libqdutils
+common_includes += device/somc/hazard/display/libhwcomposer
+common_includes += device/somc/hazard/display/libexternal
+common_includes += device/somc/hazard/display/libqservice
 
 common_header_export_path := qcom/display
 
@@ -14,7 +14,7 @@ common_libs := liblog libutils libcutils libhardware
 
 #Common C flags
 common_flags := -DDEBUG_CALC_FPS -Wno-missing-field-initializers
-common_flags += -Werror
+common_flags += -Werror -Wno-unused-parameter
 
 ifeq ($(ARCH_ARM_HAVE_NEON),true)
     common_flags += -D__ARM_HAVE_NEON
