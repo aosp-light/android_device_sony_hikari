@@ -171,6 +171,10 @@
         <ctl name="handset_tx" value="1" />
     </path>
 
+    <path name="headphones">
+        <ctl name="headset_stereo_rx" value="1" />
+    </path>
+
     <path name="headset">
         <ctl name="headset_stereo_rx" value="1" />
     </path>
