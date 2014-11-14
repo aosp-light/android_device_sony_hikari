@@ -49,12 +49,12 @@ libmm-venc-inc      += $(OMX_VIDEO_PATH)/vidc/common/inc
 libmm-venc-inc      += hardware/qcom/media/mm-core/inc
 libmm-venc-inc      += hardware/qcom/media/libstagefrighthw
 
-libmm-venc-inc      += device/somc/hikari/display/libgralloc
+libmm-venc-inc      += device/somc/hazard/display/libgralloc
 
 libmm-venc-inc      += frameworks/native/include/media/hardware
 libmm-venc-inc      += frameworks/native/include/media/openmax
-libmm-venc-inc      += device/somc/hikari/media/libc2dcolorconvert
-libmm-venc-inc      += device/somc/hikari/display/libcopybit
+libmm-venc-inc      += device/somc/hazard/media/libc2dcolorconvert
+libmm-venc-inc      += device/somc/hazard/display/libcopybit
 libmm-venc-inc      += frameworks/av/include/media/stagefright
 
 

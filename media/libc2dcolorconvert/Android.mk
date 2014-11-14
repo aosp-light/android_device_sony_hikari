@@ -8,7 +8,7 @@ LOCAL_SRC_FILES := \
 LOCAL_C_INCLUDES := \
     $(TOP)/frameworks/av/include/media/stagefright \
     $(TOP)/frameworks/native/include/media/openmax \
-    $(TOP)/device/somc/hikari/display/libcopybit
+    $(TARGET_OUT_HEADERS)/qcom/display
 
 LOCAL_SHARED_LIBRARIES := liblog libdl
 
