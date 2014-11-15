@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013-2014 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@ enum {
     SND_DEVICE_OUT_HDMI,
     SND_DEVICE_OUT_SPEAKER_AND_HDMI,
     SND_DEVICE_OUT_BT_SCO,
+    SND_DEVICE_OUT_BT_SCO_WB,
     SND_DEVICE_OUT_VOICE_TTY_FULL_HEADSET,
     SND_DEVICE_OUT_VOICE_TTY_VCO_HEADSET,
     SND_DEVICE_OUT_VOICE_TTY_HCO_HANDSET,
@@ -63,6 +64,7 @@ enum {
     SND_DEVICE_IN_HEADSET_MIC_AEC,
     SND_DEVICE_IN_HDMI_MIC,
     SND_DEVICE_IN_BT_SCO_MIC,
+    SND_DEVICE_IN_BT_SCO_MIC_WB,
     SND_DEVICE_IN_CAMCORDER_MIC,
     SND_DEVICE_IN_VOICE_DMIC_EF,
     SND_DEVICE_IN_VOICE_DMIC_BS,
@@ -108,5 +110,13 @@ enum {
 
 #define AUDIO_CAPTURE_PERIOD_DURATION_MSEC 20
 #define AUDIO_CAPTURE_PERIOD_COUNT 2
+
+#define LOW_LATENCY_CAPTURE_SAMPLE_RATE 48000
+#define LOW_LATENCY_CAPTURE_PERIOD_SIZE 240
+#define LOW_LATENCY_CAPTURE_USE_CASE 0
+
+#define AFE_PROXY_PLAYBACK_PCM_DEVICE 7
+#define AFE_PROXY_RECORD_PCM_DEVICE 8
+
 
 #endif // QCOM_AUDIO_PLATFORM_H
