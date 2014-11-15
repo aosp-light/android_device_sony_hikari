@@ -46,13 +46,16 @@
     <ctl name="deep-buffer-playback" value="0" />
     <ctl name="deep-buffer-playback bt-sco" value="0" />
     <ctl name="deep-buffer-playback hdmi" value="0" />
+    <ctl name="deep-buffer-playback headset_stereo_rx" value="0" />
     <ctl name="low-latency-playback" value="0" />
     <ctl name="low-latency-playback bt-sco" value="0" />
     <ctl name="low-latency-playback hdmi" value="0" />
+    <ctl name="low-latency-playback headset_stereo_rx" value="0" />
     <ctl name="multi-channel-playback hdmi" value="0" />
     <ctl name="compress-offload-playback" value="0" />
     <ctl name="compress-offload-playback bt-sco" value="0" />
     <ctl name="compress-offload-playback hdmi" value="0" />
+    <ctl name="compress-offload-playback headset_stereo_rx" value="0" />
     <ctl name="audio-record" value="0" />
     <ctl name="audio-record bt-sco" value="0" />
     <ctl name="audio-record fm-radio" value="0" />
@@ -73,6 +76,10 @@
     <path name="deep-buffer-playback hdmi">
         <ctl name="deep-buffer-playback hdmi" value="1" />
     </path>
+    
+    <path name="deep-buffer-playback headset_stereo_rx">
+        <ctl name="deep-buffer-playback headset_stereo_rx" value="1" />
+    </path>
 
     <path name="deep-buffer-playback speaker-and-hdmi">
         <path name="deep-buffer-playback hdmi" />
@@ -89,6 +96,10 @@
 
     <path name="low-latency-playback hdmi">
         <ctl name="low-latency-playback hdmi" value="1" />
+    </path>
+    
+    <path name="low-latency-playback headset_stereo_rx">
+        <ctl name="low-latency-playback headset_stereo_rx" value="1" />
     </path>
 
     <path name="low-latency-playback speaker-and-hdmi">
@@ -110,6 +121,10 @@
 
     <path name="compress-offload-playback hdmi">
         <ctl name="compress-offload-playback hdmi" value="1" />
+    </path>
+    
+    <path name="compress-offload-playback headset_stereo_rx">
+        <ctl name="compress-offload-playback headset_stereo_rx" value="1" />
     </path>
 
     <path name="compress-offload-playback speaker-and-hdmi">
@@ -273,5 +288,12 @@
     <path name="fm-radio">
         <ctl name="fmradio_stereo_tx" value="1" />
     </path>
+    
+    <path name="voice-rx">
+    </path>
+
+    <path name="voice-tx">
+    </path>
+
 
 </mixer>
