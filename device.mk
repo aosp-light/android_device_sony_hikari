@@ -1,255 +1,214 @@
 #
-# Copyright (C) 2011 The Android Open-Source Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Copyright (C) 2014-2015 BPaul
 #
 
-# This file includes all definitions that apply to ALL hazard devices, and
-# are also specific to hazard devices
-#
-# Everything in this directory will become public
+DEVICE_PACKAGE_OVERLAYS += \
+     device/somc/hazard/overlay
 
-DEVICE_PACKAGE_OVERLAYS := device/somc/hazard/overlay
-
-# This device is xhdpi.  However the platform doesn't
-# currently contain all of the bitmaps at xhdpi density so
-# we do this little trick to fall back to the hdpi version
-# if the xhdpi doesn't exist.
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
-
-# Lights
-PRODUCT_PACKAGES := \
-    lights.msm8660
-
-ifneq ($(findstring fuji, $(TARGET_PRODUCT)),)
-LOCAL_KERNEL := device/somc/hazard/kernel/kernel-fuji
-else
-LOCAL_KERNEL := device/somc/hazard/kernel/kernel
-endif
-
-PRODUCT_COPY_FILES := \
-    $(LOCAL_KERNEL):kernel
-
-PRODUCT_COPY_FILES += device/somc/hazard/audio_policy.conf:system/etc/audio_policy.conf
-
-PRODUCT_COPY_FILES += device/somc/hazard/mixer_paths.xml:system/etc/mixer_paths.xml
-
-PRODUCT_COPY_FILES += device/somc/hazard/thermald-hazard.conf:system/etc/thermald.conf
+CRAPPY_ROOT = device/somc/hazard/rootdir
 
 PRODUCT_COPY_FILES += \
-    device/somc/hazard/init.semc.rc:root/init.semc.rc \
-    device/somc/hazard/init.somc.rc:root/init.somc.rc \
-    device/somc/hazard/init.somc.usb.rc:root/init.somc.usb.rc \
-    device/somc/hazard/init.somc-platform.rc:root/init.somc-platform.rc \
-    device/somc/hazard/fstab.semc:root/fstab.semc \
-    device/somc/hazard/ueventd.semc.rc:root/ueventd.semc.rc \
-    device/somc/hazard/prebuilt/logo.rle:root/logo.rle \
-    device/somc/hazard/media_profiles.xml:system/etc/media_profiles.xml \
-    device/somc/hazard/media_codecs.xml:system/etc/media_codecs.xml \
-    device/somc/hazard/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
-    device/somc/hazard/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
-    device/somc/hazard/init.qcom.sh:root/init.qcom.sh
+     $(CRAPPY_ROOT)/init.semc.rc:root/init.semc.rc \
+     $(CRAPPY_ROOT)/init.semc.usb.rc:root/init.semc.usb.rc \
+     $(CRAPPY_ROOT)/fstab.semc:root/fstab.semc \
+     $(CRAPPY_ROOT)/ueventd.semc.rc:root/ueventd.semc.rc \
+     $(CRAPPY_ROOT)/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
+     $(CRAPPY_ROOT)/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
+     $(CRAPPY_ROOT)/init.qcom.sh:root/init.qcom.sh \
+     $(CRAPPY_ROOT)/system/usr/idc/clearpad.idc:system/usr/idc/clearpad.idc \
+     $(CRAPPY_ROOT)/system/usr/keylayout/clearpad.kl:system/usr/keylayout/clearpad.kl \
+     $(CRAPPY_ROOT)/system/usr/keylayout/fuji-keypad.kl:system/usr/keylayout/fuji-keypad.kl \
+     $(CRAPPY_ROOT)/system/usr/keylayout/gpio-key.kl:system/usr/keylayout/gpio-key.kl \
+     $(CRAPPY_ROOT)/system/usr/keylayout/keypad-pmic-fuji.kl:system/usr/keylayout/keypad-pmic-fuji.kl \
+     $(CRAPPY_ROOT)/system/usr/keylayout/pmic8058_pwrkey.kl:system/usr/keylayout/pmic8058_pwrkey.kl \
+     $(CRAPPY_ROOT)/system/etc/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
+     $(CRAPPY_ROOT)/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
+     $(CRAPPY_ROOT)/system/etc/clearpad_fwloader.sh:system/etc/clearpad_fwloader.sh \
+     $(CRAPPY_ROOT)/system/etc/flashled_calc_parameters.cfg:system/etc/flashled_calc_parameters.cfg \
+     $(CRAPPY_ROOT)/system/etc/hw_config.sh:system/etc/hw_config.sh \
+     $(CRAPPY_ROOT)/system/etc/iddd.conf:system/etc/iddd.conf \
+     $(CRAPPY_ROOT)/system/etc/init.netconfig.sh:system/etc/init.netconfig.sh \
+     $(CRAPPY_ROOT)/system/etc/init.qcom.efs.sync.sh:system/etc/init.qcom.efs.sync.sh \
+     $(CRAPPY_ROOT)/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
+     $(CRAPPY_ROOT)/system/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
+     $(CRAPPY_ROOT)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
+     $(CRAPPY_ROOT)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
+     $(CRAPPY_ROOT)/system/etc/pre_hw_config.sh:system/etc/pre_hw_config.so \
+     $(CRAPPY_ROOT)/system/etc/qosmgr_rules.xml:system/etc/qosmgr_rules.xml \
+     $(CRAPPY_ROOT)/system/usr/keylayout/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
+     $(CRAPPY_ROOT)/system/usr/keychars/Button_Jack.kcm:system/usr/keychars/Button_Jack.kcm \
+     $(CRAPPY_ROOT)/system/usr/keylayout/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
+     $(CRAPPY_ROOT)/system/usr/keychars/hs_detect.kcm:system/usr/keychars/hs_detect.kcm
 
-
-# Prebuilt kl keymaps
 PRODUCT_COPY_FILES += \
-    device/somc/hazard/fuji-keypad.kl:system/usr/keylayout/fuji-keypad.kl \
-    device/somc/hazard/gpio-key.kl:system/usr/keylayout/gpio-key.kl \
-    device/somc/hazard/keypad-pmic-fuji.kl:system/usr/keylayout/keypad-pmic-fuji.kl \
-    device/somc/hazard/pmic8058_pwrkey.kl:system/usr/keylayout/pmic8058_pwrkey.kl \
-    device/somc/hazard/simple_remote.kl:system/usr/keylayout/simple_remote.kl \
-    device/somc/hazard/simple_remote_appkey.kl:system/usr/keylayout/simple_remote_appkey.kl
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
-# Prebuilt input device calibration files
 PRODUCT_COPY_FILES += \
-    device/somc/hazard/clearpad.idc:system/usr/idc/clearpad.idc \
-    device/somc/hazard/clearpad.kl:system/usr/keylayout/clearpad.kl
-
-# These are the hardware-specific features
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
-    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
-    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml
+     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
 # NFC
-PRODUCT_PACKAGES += \
-    nfc.msm8660 \
-    libnfc \
-    libnfc_jni \
-    Nfc \
-    Tag \
-    com.android.nfc_extras
-
-# NFCEE access control
-ifeq ($(TARGET_BUILD_VARIANT),user)
-    NFCEE_ACCESS_PATH := device/somc/hazard/nfc/nfcee_access.xml
-else
-    NFCEE_ACCESS_PATH := device/somc/hazard/nfc/nfcee_access_debug.xml
-endif
-
-# NFC access control + feature files + configuration
 PRODUCT_COPY_FILES += \
-    $(NFCEE_ACCESS_PATH):system/etc/nfcee_access.xml \
-    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
-    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml
+     $(CRAPPY_ROOT)/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
+     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml
 
-# Bluetooth
+# NFC packages
 PRODUCT_PACKAGES += \
-    libbt-vendor \
-    libbluedroid \
-    brcm_patchram_plus \
-    bt_vendor.conf
-
-# Wifi
-PRODUCT_PACKAGES += \
-    libnetcmdiface \
-    libwifi-hal-bcm
-
-$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
-
-PRODUCT_COPY_FILES += \
-    device/somc/hazard/config/calibration:system/etc/wifi/calibration
-
-# DASH
-PRODUCT_COPY_FILES += \
-    device/somc/hazard/config/sensors.conf:system/etc/sensors.conf
-
-PRODUCT_PACKAGES += \
-    sensors.msm8660 \
-    libmlplatform \
-    libmllite \
-    libmpl
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=131072
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=320
-
-# Audio Configuration
-# FIXME: Remove persist.audio.handset.mic and persist.audio.fluence.mode
-#        while switching new audio HAL from legacy HAL
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.audio.handset.mic.type=digital \
-    persist.audio.dualmic.config=endfire \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.handset.mic=dmic \
-    persist.audio.fluence.mode=endfire \
-    persist.audio.lowlatency.rec=false \
-    af.resampler.quality=4
-
-PRODUCT_CHARACTERISTICS := default
-
-PRODUCT_TAGS += dalvik.gc.type-precise
-
-PRODUCT_PACKAGES += com.android.future.usb.accessory
-
-# Audio effects
-PRODUCT_PACKAGES += \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libqcomvoiceprocessingdescriptors \
-    libqcompostprocbundle
-
-PRODUCT_COPY_FILES += \
-    device/somc/hazard/audio_effects.conf:system/vendor/etc/audio_effects.conf
-
-# Another blobs
-PRODUCT_COPY_FILES += \
-    device/somc/hazard/config/clearpad_fwloader.sh:system/etc/clearpad_fwloader.sh \
-    device/somc/hazard/config/flashled_calc_parameters.cfg:system/etc/flashled_calc_parameters.cfg \
-    device/somc/hazard/config/hw_config.sh:system/etc/hw_config.sh \
-    device/somc/hazard/config/iddd.conf:system/etc/iddd.conf \
-    device/somc/hazard/config/init.netconfig.sh:system/etc/init.netconfig.sh \
-    device/somc/hazard/config/init.qcom.efs.sync.sh:system/etc/init.qcom.efs.sync.sh \
-    device/somc/hazard/config/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
-    device/somc/hazard/config/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
-    device/somc/hazard/config/pre_hw_config.sh:system/etc/pre_hw_config.sh \
-    device/somc/hazard/config/qosmgr_rules.xml:system/etc/qosmgr_rules.xml
-
-PRODUCT_PACKAGES += \
-    libemoji \
-    e2fsck \
-    fsck_msdos \
-    Email \
-    Stk
-
-PRODUCT_PACKAGES += \
-    busybox
-
-# Recovery
-#PRODUCT_PACKAGES += \
-#    extract_elf_ramdisk
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/busybox:root/sbin/busybox \
-    $(LOCAL_PATH)/recovery/extract_elf_ramdisk:$(PRODUCT_OUT)/utilities/extract_elf_ramdisk
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
-    $(LOCAL_PATH)/recovery/rebootrecovery.sh:recovery/root/sbin/rebootrecovery.sh \
-    $(LOCAL_PATH)/recovery/bootrec-device:recovery/bootrec-device
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
-# Display
-PRODUCT_PACKAGES += \
-    libgenlock \
-    liboverlay \
-    hwcomposer.msm8660 \
-    gralloc.msm8660 \
-    memtrack.msm8660 \
-    copybit.msm8660
-
-# Media
-PRODUCT_PACKAGES += \
-    libdivxdrmdecrypt \
-    libOmxVdec \
-    libOmxVenc \
-    libOmxCore \
-    libstagefrighthw \
-    libc2dcolorconvert
+     com.android.nfc_extras \
+     NfcNci \
+     Tag
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio.primary.msm8660 \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    libaudio-resampler
+     audio.a2dp.default \
+     audio.primary.msm8660 \
+     audio.r_submix.default \
+     audio.usb.default \
+     libaudio-resampler \
+     libacdbloader \
+     libacdbmapper \
+     libaudcal \
+     libaudioalsa \
+     libdiag
 
-$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+# for audio.primary.msm8660
+PRODUCT_PACKAGES += \
+     libtinyalsa \
+     libtinycompress \
+     libaudioroute
+
+# GFX
+PRODUCT_PACKAGES += \
+     hwcomposer.msm8660 \
+     gralloc.msm8660 \
+     memtrack.msm8660 \
+     copybit.msm8660 \
+     liboverlay \
+     libgenlock \
+     libqdutils \
+     libmemalloc \
+     libqdMetaData \
+     libqservice \
+     libexternal
+
+# Lights
+PRODUCT_PACKAGES += \
+     lights.msm8660
+
+#GPS
+PRODUCT_PACKAGES += \
+     libloc_api_v02 \
+     libloc_adapter \
+     libloc_eng \
+     libgps.utils \
+     gps.msm8660
+
+# Media
+PRODUCT_PACKAGES += \
+     libdivxdrmdecrypt \
+     libOmxVdec \
+     libOmxVenc \
+     libOmxCore \
+     libstagefrighthw \
+     libc2dcolorconvert
+
+# WLAN
+PRODUCT_PACKAGES += \
+     p2p_supplicant.conf \
+     gsm_domains.conf \
+     hostapd \
+     libwpa_client \
+     wpa_supplicant \
+     wpa_supplicant.conf
+
+PRODUCT_PACKAGES += \
+     sensors.msm8660
+
+PRODUCT_PROPERTY_OVERRIDES += \
+     ro.opengles.version=131072
+
+# Audio Configuration
+PRODUCT_PROPERTY_OVERRIDES += \
+     persist.audio.handset.mic.type=digital \
+     persist.audio.dualmic.config=endfire \
+     persist.audio.fluence.voicecall=true \
+     persist.audio.handset.mic=dmic \
+     persist.audio.fluence.mode=endfire \
+     persist.audio.lowlatency.rec=false \
+     af.resampler.quality=4
+
+PRODUCT_CHARACTERISTICS := default
+
+PRODUCT_PACKAGES += \
+     libemoji \
+     e2fsck \
+     fsck_msdos \
+     Email \
+     Stk
+
+PRODUCT_PROPERTY_OVERRIDES += \
+     wifi.interface=wlan0 \
+     wifi.supplicant_scan_interval=15
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+     persist.sys.usb.config=mtp
+
+# Charger
+PRODUCT_PACKAGES += \
+     charger \
+     charger_res_images \
+
+PRODUCT_PACKAGES += \
+     librs_jni \
+     com.android.future.usb.accessory
+
+# for launcher layout
+PRODUCT_PACKAGES += \
+    HazardLayout
+
+PRODUCT_PACKAGES += \
+     Dialer \
+     Email \
+     Exchange2 \
+     InCallUI \
+     Launcher3
+
+# SIM based FSG loading default enabled
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.fsg_reload_on=1
+
+# setup scheduler tunable
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.qualcomm.perf.cores_online=2
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+     e2fsck
+
+PRODUCT_TAGS += dalvik.gc.type-precise
+
+# APN list
+PRODUCT_COPY_FILES += device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
+
+PRODUCT_PROPERTY_OVERRIDES += \
+     keyguard.no_require_sim=true
