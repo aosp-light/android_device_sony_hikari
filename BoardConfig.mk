@@ -1,8 +1,6 @@
 #
-# Copyright (C) 2014-2015 BPaul
+# Copyright (C) 2014-2015, BPaul
 #
-
-PRODUCT_VENDOR_KERNEL_HEADERS := device/somc/hazard/kernel-headers
 
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
@@ -14,20 +12,15 @@ TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 COMMON_GLOBAL_CFLAGS += -DLEGACY_BLOB_COMPATIBLE
 TARGET_NO_RADIOIMAGE := true
-TARGET_NO_RECOVERY := false
-TARGET_NO_KERNEL := false
-
-MALLOC_IMPL := dlmalloc
 
 BOARD_KERNEL_BASE := 0x40208000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x04150000
 
 BOARD_KERNEL_BOOTIMG := true
-#BOARD_CUSTOM_MKBOOTIMG := mkqcdtbootimg
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET).
 
-BOARD_KERNEL_CMDLINE := # Hazard no support it
+BOARD_KERNEL_CMDLINE := # Hikari no support it
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1056964608
@@ -35,20 +28,13 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 USE_OPENGL_RENDERER := true
 TARGET_USES_C2D_COMPOSITON := true
-MAX_EGL_CACHE_KEY_SIZE := 6*512
-MAX_EGL_CACHE_SIZE := 1024*512
-OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-BOARD_EGL_CFG := device/somc/hazard/rootdir/system/lib/egl/egl.cfg
+BOARD_EGL_CFG := device/sony/hikari/rootdir/system/lib/egl/egl.cfg
 
-#BOARD_USES_GENERIC_AUDIO := false
+# Audio
 BOARD_USES_ALSA_AUDIO := true
 
 TARGET_USES_ION := true
 USE_DEVICE_SPECIFIC_CAMERA := true
-
-# FM
-#BOARD_HAVE_FMRADIO := true
-#BOARD_HAVE_FMRADIO_BCM := true
 
 # Wi-Fi definitions for Broadcom solution
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
@@ -63,14 +49,9 @@ WIFI_DRIVER_FW_PATH_AP      := "/system/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_P2P     := "/system/vendor/firmware/fw_bcmdhd.bin
 
 # BT definitions for Broadcom solution
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/somc/hazard/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/hikari/bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-
-# GPS definitions for Qualcomm solution
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
-TARGET_NO_RPC := true
-BOARD_USES_QCOM_HARDWARE_GPS := true
 
 # DASH
 BOARD_USES_GENERIC_INVENSENSE := false
@@ -86,8 +67,7 @@ SOMC_CFG_SENSORS_PROXIMITY_APDS9702 := yes
 
 # Board
 TARGET_BOARD_PLATFORM := msm8660
-TARGET_BOOTLOADER_BOARD_NAME := hazard
+TARGET_BOOTLOADER_BOARD_NAME := fuji
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
-TARGET_SYSTEM_PROP := device/somc/hazard/system.prop

@@ -1,2 +1,9 @@
+#
+# Copyright 2014-2015, BPaul
+#
+
 LOCAL_PATH := $(call my-dir)
-include $(call first-makefiles-under,$(LOCAL_PATH))
+
+ifneq ($(filter hikari,$(TARGET_DEVICE)),)
+include $(call all-makefiles-under,$(LOCAL_PATH))
+endif

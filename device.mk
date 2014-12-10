@@ -1,11 +1,11 @@
 #
-# Copyright (C) 2014-2015 BPaul
+# Copyright (C) 2014-2015, BPaul
 #
 
 DEVICE_PACKAGE_OVERLAYS += \
-     device/somc/hazard/overlay
+     device/sony/hikari/overlay
 
-CRAPPY_ROOT = device/somc/hazard/rootdir
+CRAPPY_ROOT = device/sony/hikari/rootdir
 
 PRODUCT_COPY_FILES += \
      $(CRAPPY_ROOT)/init.semc.rc:root/init.semc.rc \
@@ -34,16 +34,12 @@ PRODUCT_COPY_FILES += \
      $(CRAPPY_ROOT)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
      $(CRAPPY_ROOT)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
      $(CRAPPY_ROOT)/system/etc/pre_hw_config.sh:system/etc/pre_hw_config.so \
-     $(CRAPPY_ROOT)/system/etc/qosmgr_rules.xml:system/etc/qosmgr_rules.xml \
-     $(CRAPPY_ROOT)/system/usr/keylayout/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
-     $(CRAPPY_ROOT)/system/usr/keychars/Button_Jack.kcm:system/usr/keychars/Button_Jack.kcm \
-     $(CRAPPY_ROOT)/system/usr/keylayout/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
-     $(CRAPPY_ROOT)/system/usr/keychars/hs_detect.kcm:system/usr/keychars/hs_detect.kcm
+     $(CRAPPY_ROOT)/system/etc/qosmgr_rules.xml:system/etc/qosmgr_rules.xml
 
 PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 PRODUCT_COPY_FILES += \
      frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -84,18 +80,7 @@ PRODUCT_PACKAGES += \
      audio.primary.msm8660 \
      audio.r_submix.default \
      audio.usb.default \
-     libaudio-resampler \
-     libacdbloader \
-     libacdbmapper \
-     libaudcal \
-     libaudioalsa \
-     libdiag
-
-# for audio.primary.msm8660
-PRODUCT_PACKAGES += \
-     libtinyalsa \
-     libtinycompress \
-     libaudioroute
+     libaudio-resampler
 
 # GFX
 PRODUCT_PACKAGES += \
@@ -115,7 +100,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
      lights.msm8660
 
-#GPS
+# GPS
 PRODUCT_PACKAGES += \
      libloc_api_v02 \
      libloc_adapter \
@@ -166,10 +151,6 @@ PRODUCT_PACKAGES += \
      Email \
      Stk
 
-PRODUCT_PROPERTY_OVERRIDES += \
-     wifi.interface=wlan0 \
-     wifi.supplicant_scan_interval=15
-
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
      persist.sys.usb.config=mtp
 
@@ -179,12 +160,7 @@ PRODUCT_PACKAGES += \
      charger_res_images \
 
 PRODUCT_PACKAGES += \
-     librs_jni \
-     com.android.future.usb.accessory
-
-# for launcher layout
-PRODUCT_PACKAGES += \
-    HazardLayout
+     librs_jni
 
 PRODUCT_PACKAGES += \
      Dialer \
@@ -192,14 +168,6 @@ PRODUCT_PACKAGES += \
      Exchange2 \
      InCallUI \
      Launcher3
-
-# SIM based FSG loading default enabled
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.fsg_reload_on=1
-
-# setup scheduler tunable
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.perf.cores_online=2
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
