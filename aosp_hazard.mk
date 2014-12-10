@@ -37,11 +37,11 @@ PRODUCT_MODEL := Xperia acro S
 PRODUCT_LOCALES += xhdpi hdpi
 PRODUCT_MANUFACTURER := Sony
 
-WIFI_BAND := 802_11_BG
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 
 PRODUCT_COPY_FILES += \
-	device/somc/hazard/config/calibration:system/etc/wifi/calibration
+     device/somc/hazard/config/calibration:system/etc/wifi/calibration \
+     device/somc/hazard/config/calibration2g:system/etc/wifi/calibration2g
 
 PRODUCT_PROPERTY_OVERRIDES += \
      ro.sf.lcd_density=320
