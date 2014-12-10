@@ -40,13 +40,8 @@ PRODUCT_MANUFACTURER := Sony
 WIFI_BAND := 802_11_BG
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 
-ifeq ($(strip $(WIFI_BAND)),802_11_BG)
 PRODUCT_COPY_FILES += \
-	device/somc/hazard/rootdir/system/bcm2g.cal:system/etc/wifi/calibration
-else
-PRODUCT_COPY_FILES += \
-	device/somc/hazard/rootdir/system/bcm5g.cal:system/vendor/firmware/bcmdhd.cal
-endif
+	device/somc/hazard/config/calibration:system/etc/wifi/calibration
 
 PRODUCT_PROPERTY_OVERRIDES += \
      ro.sf.lcd_density=320

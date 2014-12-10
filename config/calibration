@@ -40,6 +40,7 @@ bphyscale=17
 cckPwrIdxCorr=-15
 pacalidx2g=60
 #xtalmode=0x20,0x4,0
+
 #noise_cal_ref_2g=56
 #pa0itssit=0x20
 #sd_gpout=0
