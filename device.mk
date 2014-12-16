@@ -2,6 +2,18 @@
 # Copyright 2014-2015, BPaul
 #
 
+TARGET_PREBUILT_KERNEL := device/sony/hikari-kernel/zImage
+PRODUCT_COPY_FILES += $(TARGET_PREBUILT_KERNEL):kernel
+
+# Copy all others kernel modules under the "modules" directory to system/lib/modules
+PRODUCT_COPY_FILES += $(shell test -d device/sony/hikari-kernel/modules && \
+	find device/sony/hikari-kernel/modules -name '*.ko' \
+	-printf '%p:system/lib/modules/%f ')
+
+# Kernel
+PRODUCT_PACKAGES += \
+    kernel
+
 PRODUCT_COPY_FILES += \
      frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
      frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
