@@ -1,0 +1,9 @@
+# semc_fuji_hikari twrp fstab
+/boot			emmc	/dev/block/platform/msm_sdcc.1/by-num/p1
+/recovery		emmc	/dev/block/platform/msm_sdcc.1/by-num/p11
+/system			ext4	/dev/block/platform/msm_sdcc.1/by-num/p12
+/cache			ext4	/dev/block/platform/msm_sdcc.1/by-num/p13
+/data			ext4	/dev/block/platform/msm_sdcc.1/by-num/p14	length=-16384
+/sdcard			vfat	/dev/block/platform/msm_sdcc.1/by-num/p15	flags=display="Internal Storage";storage;wipeingui;removable
+/external_sd		vfat	/dev/block/mmcblk1p1	/dev/block/mmcblk1	flags=display="External Storage";storage;wipeingui;removable
+/usb-otg		vfat	/dev/block/sda1         /dev/block/sda		flags=display="USB Flash Drive";storage;wipeingui;removable
