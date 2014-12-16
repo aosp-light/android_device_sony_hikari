@@ -11,20 +11,6 @@ TARGET_CPU_SMP := true
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 COMMON_GLOBAL_CFLAGS += -DLEGACY_BLOB_COMPATIBLE
-TARGET_NO_RADIOIMAGE := true
-
-BOARD_KERNEL_BASE := 0x40208000
-BOARD_KERNEL_PAGESIZE := 2048
-BOARD_RAMDISK_OFFSET := 0x04150000
-
-BOARD_KERNEL_BOOTIMG := true
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET).
-
-BOARD_KERNEL_CMDLINE := # Hikari no support it
-
-TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1056964608
-BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 USE_OPENGL_RENDERER := true
 TARGET_USES_C2D_COMPOSITON := true
@@ -74,6 +60,28 @@ SOMC_CFG_SENSORS_PROXIMITY_APDS9702 := yes
 # Board
 TARGET_BOARD_PLATFORM := msm8660
 TARGET_BOOTLOADER_BOARD_NAME := fuji
+
+# OTA
+TARGET_RELEASETOOLS_EXTENSIONS := device/sony/hikari
+TARGET_OTA_ASSERT_DEVICE := LT26,LT26w,SO-03D,hikari
+
+# Enable dual-recovery custom ota script
+SONY_USE_CUSTOM_MKBOOTIMG := true
+SONY_USE_CUSTOM_BOOT := true
+
+ifeq ($(SONY_USE_CUSTOM_BOOT),true)
+ifeq ($(SONY_USE_CUSTOM_MKBOOTIMG),true)
+BOARD_CUSTOM_BOOTIMG_MK := device/sony/hikari/customboot.mk
+else
+BOARD_CUSTOM_BOOTIMG_MK := device/sony/hikari/stockboot.mk
+endif
+else
+BOARD_CUSTOM_MKBOOTIMG := device/sony/hikari/tools/mkbootimg.py
+BOARD_MKBOOTIMG_ARGS := \
+	out/target/product/hikari/kernel@0x40208000 \
+	out/target/product/hikari/ramdisk.img@0x41500000,ramdisk \
+	device/sony/hikari/prebuilt/RPM.bin@0x20000,rpm
+endif
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
