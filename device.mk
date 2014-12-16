@@ -53,6 +53,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
     frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml
 
+# BT
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/config/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
+    $(LOCAL_PATH)/config/BCM4330.hcd:system/etc/firmware/BCM4330.hcd
+
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)

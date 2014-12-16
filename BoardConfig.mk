@@ -33,6 +33,12 @@ BOARD_EGL_CFG := device/sony/hikari/rootdir/system/lib/egl/egl.cfg
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUEDROID_VENDOR_CONF := device/sony/hikari/bluetooth/vnd_hikari.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/hikari/bluetooth
+
 TARGET_USES_ION := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
