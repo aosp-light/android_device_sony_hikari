@@ -24,6 +24,35 @@ DEVICE_PACKAGE_OVERLAYS += device/sony/hikari/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
+# Display
+PRODUCT_PACKAGES += \
+    liboverlay \
+    hwcomposer.msm8660 \
+    gralloc.msm8660 \
+    memtrack.msm8660 \
+    copybit.msm8660
+
+# Wifi
+PRODUCT_PACKAGES += \
+    libnetcmdiface \
+    libwpa_client \
+    hostapd \
+    dhcpcd.conf \
+    wpa_supplicant \
+    wpa_supplicant.conf
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/config/calibration:system/etc/wifi/calibration
+
+$(call inherit-product-if-exists, device/sony/fuji/firmware/semc-bcm.mk)
+
+# DASH
+PRODUCT_PACKAGES += \
+    sensors.msm8660 \
+    libmlplatform \
+    libmllite \
+    libmpl
+
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/sensors.conf:system/etc/sensors.conf
 
