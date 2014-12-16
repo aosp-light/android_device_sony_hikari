@@ -61,6 +61,40 @@ SOMC_CFG_SENSORS_PROXIMITY_APDS9702 := yes
 TARGET_BOARD_PLATFORM := msm8660
 TARGET_BOOTLOADER_BOARD_NAME := fuji
 
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+  ifeq ($(TARGET_BUILD_VARIANT),user)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+DONT_DEXPREOPT_PREBUILTS := true
+
+# Image
+TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1056964608
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
+BOARD_FLASH_BLOCK_SIZE := 131072
+
+# Recovery
+TARGET_NO_BOOTLOADER := true
+BOARD_HAS_NO_MISC_PARTITION := true
+TARGET_RECOVERY_FSTAB = device/sony/hikari/config/fstab.semc
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
+TARGET_NO_SEPARATE_RECOVERY := true
+BOARD_SDCARD_INTERNAL_DEVICE := /dev/block/mmcblk0p15
+
+# TWRP
+DEVICE_RESOLUTION := 720x1280
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_INTERNAL_STORAGE_PATH := "/sdcard"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "sdcard"
+TW_TARGET_USES_QCOM_BSP := true
+TW_EXTERNAL_STORAGE_PATH := "/external_sd"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+
 # OTA
 TARGET_RELEASETOOLS_EXTENSIONS := device/sony/hikari
 TARGET_OTA_ASSERT_DEVICE := LT26,LT26w,SO-03D,hikari
@@ -83,5 +117,8 @@ BOARD_MKBOOTIMG_ARGS := \
 	device/sony/hikari/prebuilt/RPM.bin@0x20000,rpm
 endif
 
-# Charger
-BOARD_CHARGER_ENABLE_SUSPEND := true
+-include vendor/sony/hikari/BoardConfigVendor.mk
+
+# Health Daemon
+BOARD_BATTERY_DEVICE_NAME := "semc_battery_data"
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.semc
