@@ -133,4 +133,4 @@ net.nw.cache.weightadvstep=3600000
 net.nw.cache.orderby=weight
 stathub.enabled=0
 
-ro.vendor.extension_library=/system/lib/libqc-opt.so
+ro.vendor.extension_library=/vendor/lib/libqc-opt.so
