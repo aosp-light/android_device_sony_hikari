@@ -24,6 +24,9 @@ DEVICE_PACKAGE_OVERLAYS += device/sony/hikari/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
+PRODUCT_COPY_FILES += \
+   $(LOCAL_PATH)/config/sensors.conf:system/etc/sensors.conf
+
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
