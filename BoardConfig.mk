@@ -1,17 +1,21 @@
 #
-# Copyright (C) 2014-2015, BPaul
+# Copyright 2014-2015, BPaul
 #
 
-TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a-neon
+# CPU
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_VARIANT := cortex-a9
 TARGET_CPU_SMP := true
+TARGET_CPU_VARIANT := cortex-a9
+TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
+
+# Crutches
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 COMMON_GLOBAL_CFLAGS += -DLEGACY_BLOB_COMPATIBLE
 
+# Display
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/sony/hikari/config/egl.cfg
 ARCH_ARM_HAVE_NEON := true
@@ -52,11 +56,13 @@ WIFI_DRIVER_FW_PATH_STA     := "/system/vendor/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/system/vendor/firmware/fw_bcmdhd_apsta.bin"
 #WIFI_DRIVER_FW_PATH_P2P     := "/system/vendor/firmware/fw_bcmdhd_p2p.bin"
 
-# BT definitions for Broadcom solution
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/hikari/bluetooth
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_BCM := true
+# Camera
+BOARD_USES_CAMERA_FAST_AUTOFOCUS := true
+USE_DEVICE_SPECIFIC_CAMERA := true
 
+# FM Radio
+BOARD_HAVE_FMRADIO := true
+BOARD_HAVE_FMRADIO_BCM := true
 
 # Board
 TARGET_BOARD_PLATFORM := msm8660
@@ -71,6 +77,8 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 DONT_DEXPREOPT_PREBUILTS := true
+
+BOARD_VOLD_MAX_PARTITIONS := 16
 
 # Image
 TARGET_USERIMAGES_USE_EXT4 := true
