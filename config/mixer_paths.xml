@@ -42,7 +42,6 @@
     <ctl name="uplink_rx" value="0" />
     <ctl name="hdmi_stereo_rx" value="0" />
     <ctl name="hdmi_pass_through" value="0" />
-    
     <ctl name="deep-buffer-playback" value="0" />
     <ctl name="deep-buffer-playback bt-sco" value="0" />
     <ctl name="deep-buffer-playback hdmi" value="0" />
@@ -180,7 +179,7 @@
     </path>
 
     <path name="speaker-and-headset">
-        <ctl name="headset_stereo_speaker_stereo_rx" value="1" />
+        <ctl name="headset_stereo_speaker_mono_rx" value="1" />
     </path>
 
     <path name="hdmi">
@@ -193,7 +192,7 @@
     </path>
 
     <path name="voice-rec-mic">
-        <path name="speaker-mic" />
+        <ctl name="handset_asr_tx" value="1" />
     </path>
 
     <path name="camcorder-mic">
@@ -214,15 +213,19 @@
 
     <!-- Dual MIC devices -->
     <path name="dmic-endfire">
+        <ctl name="handset_dual_mic_endfire_tx" value="1" />
     </path>
 
     <path name="dmic-broadside">
+        <ctl name="handset_dual_mic_endfire_tx" value="1" />
     </path>
 
     <path name="speaker-dmic-endfire">
+        <ctl name="speaker_dual_mic_endfire_tx" value="1" />
     </path>
 
     <path name="speaker-dmic-broadside">
+        <ctl name="speaker_dual_mic_endfire_tx" value="1" />
     </path>
 
     <path name="voice-dmic-ef">
@@ -269,5 +272,4 @@
     <path name="fm-radio">
         <ctl name="fmradio_stereo_tx" value="1" />
     </path>
-
 </mixer>
