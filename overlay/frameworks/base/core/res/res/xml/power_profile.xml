@@ -28,14 +28,14 @@
     <item name="wifi.scan">52.1</item>
     <item name="dsp.audio">0.1</item>
     <item name="dsp.video">0.1</item>
-    <item name="gps.on">70.05</item>
+    <item name="gps.on">20.9</item>
     <item name="radio.active">185.6</item>
     <!-- The current consumed by the radio when it is scanning for a signal -->
     <item name="radio.scanning">122.68</item>
     <!-- Current consumed by the radio at different signal strengths, when paging -->
     <array name="radio.on"> <!-- Strength 0 to BINS-1 -->
-        <value>7.65</value> <!-- no signal -->
-        <value>0.97</value> <!-- others -->
+        <value>1.16</value>
+        <value>2.15</value>
     </array>
     <!-- Different CPU speeds as reported in
          /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state -->
@@ -72,8 +72,8 @@
         <value>1890000</value> <!-- 1890 MHz CPU speed -->
     </array>
     <!-- Power consumption when CPU is idle -->
-    <item name="cpu.idle">3.68</item>
-    <item name="cpu.awake">14.74</item>
+    <item name="cpu.idle">3.5</item>
+    <item name="cpu.awake">10.43</item>
     <!-- Power consumption at different speeds -->
     <array name="cpu.active">
         <value>25.15</value> <!-- 192 MHz CPU speed -->

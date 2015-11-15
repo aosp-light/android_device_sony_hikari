@@ -26,7 +26,7 @@
     <bool name="config_hspa_data_distinguishable">true</bool>
 
     <!-- Vibration duration for MultiWaveView used in SearchPanelView -->
-    <integer translatable="false" name="config_search_panel_view_vibration_duration">10</integer>
+    <integer translatable="false" name="config_search_panel_view_vibration_duration">7</integer>
 
     <!-- Whether recents should use hardware layers for its taskviews. This flag can be enabled
     for devices where the java drawing of round rects may be slow -->
