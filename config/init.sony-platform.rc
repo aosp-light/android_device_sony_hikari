@@ -31,13 +31,33 @@ on post-fs
     mkdir /data/lost+found 0700 root root
 
 on post-fs-data
+    # Clear dalvik cache
+    exec /init.clrdex.sh
+
+    # USB related initialization
+    chown system system /sys/devices/platform/msm_hsusb/gadget/lun1/file
+    chmod 0660 /sys/devices/platform/msm_hsusb/gadget/lun1/file
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+    write /sys/class/android_usb/f_rndis/manufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/f_rndis/vendorID 0fce
+    write /sys/class/android_usb/f_rndis/wceis 1
+    write /sys/class/android_usb/f_mass_storage/inquiry_string "SONY    Mass Storage    0100"
+    write /sys/class/android_usb/f_cdrom/cdrom_inquiry_string "SONY    CD-ROM          0100"
+    write /sys/class/android_usb/f_mass_storage/serial_number ${ro.serialno}
+    write /sys/class/android_usb/f_mass_storage/eui64_id 000AD90000000000
+    write /sys/devices/platform/msm_hsusb/gadget/lun0/nofua 1
+    write /sys/devices/platform/msm_hsusb/gadget/lun1/nofua 1
+
     setprop vold.post_fs_data_done 1
 
 on early-boot
-    # Run pre_hw_config.sh before entering charge only mode.
+    # set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
+    #Run pre_hw_config.sh before entering charge only mode.
     exec /system/bin/sh /system/etc/pre_hw_config.sh
 
-    # Start secchan daemon service before entering charge only mode.
+    #Start secchan daemon service before entering charge only mode.
     start secchan
 
     # Start the offline charging (This blocks booting further in some cases)
@@ -45,11 +65,6 @@ on early-boot
 
     # Touch firmware update
     exec /system/bin/sh /system/etc/clearpad_fwloader.sh
-
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 192000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 192000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1512000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1512000
 
     # Permissions for AKM897x sensor
     chown system system /sys/class/compass/akm8972/interval
@@ -126,6 +141,10 @@ on boot
     chown system system /sys/devices/i2c-3/3-0054/threshold
     chown system system /sys/devices/i2c-3/3-0054/nburst
 
+    # Default tcp buffersizes for hsdpa
+    setprop net.tcp.buffersize.hsdpa 4094,87380,1220608,4096,16384,1220608
+    setprop net.tcp.buffersize.hspa 4094,87380,1220608,4096,16384,1220608
+
     # Permissions for Liblights. Will be removed when new light driver integrated.
     chown system system /sys/class/leds/green/brightness
     chown system system /sys/class/leds/green/trigger
@@ -151,12 +170,19 @@ on boot
     chown system system /sys/devices/i2c-3/3-0040/als_result
 
     # bluetooth power up/down interface
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    chmod 0660                /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+
+    # bluetooth LPM
+    chown bluetooth net_bt_stack /proc/bluetooth/sleep/lpm
+    chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
 
     # bluetooth address programming
     setprop ro.bt.bdaddr_path data/etc/bluetooth_bdaddr
+
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
 
     exec /system/bin/usbeng
 
@@ -181,6 +207,51 @@ on boot
 
     # Do not power down SIM in flight mode (required for Wi-Fi EAP-SIM)
     setprop persist.radio.apm_sim_not_pwdn 0
+
+
+on property:sys.usb.config=mass_storage
+    exec /init.usbmode.sh
+    stop adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mass_storage,adb
+    exec /init.usbmode.sh
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mtp
+    exec /init.usbmode.sh
+    stop adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mtp,adb
+    exec /init.usbmode.sh
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mtp,cdrom
+    exec /init.usbmode.sh
+    stop adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mtp,cdrom,adb
+    exec /init.usbmode.sh
+    stop adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=rndis
+    exec /init.usbmode.sh
+    stop adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=rndis,adb
+    exec /init.usbmode.sh
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+
+
+
 
 # SEMC, TA Daemon
 service tad /system/bin/tad /dev/block/mmcblk0p1 0,16,256
