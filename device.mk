@@ -2,12 +2,12 @@
 # Copyright 2014-2015, BPaul
 #
 
-TARGET_PREBUILT_KERNEL := device/sony/hikari-kernel/zImage
+TARGET_PREBUILT_KERNEL := device/sony/hikari/kernel/zImage
 PRODUCT_COPY_FILES += $(TARGET_PREBUILT_KERNEL):kernel
 
 # Copy all others kernel modules under the "modules" directory to system/lib/modules
-PRODUCT_COPY_FILES += $(shell test -d device/sony/hikari-kernel/modules && \
-	find device/sony/hikari-kernel/modules -name '*.ko' \
+PRODUCT_COPY_FILES += $(shell test -d device/sony/hikari/kernel/modules && \
+	find device/sony/hikari/kernel/modules -name '*.ko' \
 	-printf '%p:system/lib/modules/%f ')
 
 # Kernel
@@ -59,9 +59,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/config/audio_policy.conf:system/etc/audio_policy.conf
-
-PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/config/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/config/mixer_paths.xml:system/etc/mixer_paths.xml
 
 # NFC
@@ -93,19 +91,21 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/calibration:system/etc/wifi/calibration
+    $(LOCAL_PATH)/config/calibration:system/etc/wifi/calibration \
+    $(LOCAL_PATH)/bluetooth/BCM4330.hcd:system/etc/firmware/BCM4330.hcd
 
 $(call inherit-product-if-exists, device/sony/fuji/firmware/semc-bcm.mk)
 
 # DASH
 PRODUCT_PACKAGES += \
-    sensors.msm8660 \
-    libmlplatform \
-    libmllite \
-    libmpl
+    sensors.msm8660
 
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/sensors.conf:system/etc/sensors.conf
+
+# GPS
+PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/config/gps.conf:system/etc/gps.conf
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -142,8 +142,7 @@ PRODUCT_COPY_FILES += \
 
 # Common Qualcomm / Sony scripts
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/logo.rle:root/logo.rle \
-    $(LOCAL_PATH)/config/init.sony.usb.rc:root/init.sony.usb.rc \
+    $(LOCAL_PATH)/config/init.usbmode.sh:root/init.usbmode.sh \
     $(LOCAL_PATH)/config/init.qcom.sh:root/init.qcom.sh \
     $(LOCAL_PATH)/config/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
     $(LOCAL_PATH)/config/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
@@ -159,14 +158,18 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/init.semc.rc:root/init.semc.rc \
     $(LOCAL_PATH)/config/init.sony.rc:root/init.sony.rc \
-    $(LOCAL_PATH)/config/ueventd.semc.rc:root/ueventd.semc.rc \
+    $(LOCAL_PATH)/config/ueventd.semc.rc:root/ueventd.semc.rc
+
+
+PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/fstab.semc:root/fstab.semc \
     $(LOCAL_PATH)/config/init.sony-platform.rc:root/init.sony-platform.rc
 
-# BT
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
-    $(LOCAL_PATH)/config/BCM4330.hcd:system/etc/firmware/BCM4330.hcd
+PRODUCT_PACKAGES += \
+        busybox-static \
+        extract_elf_ramdisk \
+        init.sh \
+        recovery.sh
 
 # USB
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -175,11 +178,11 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# Fm radio
+# FM Radio
 PRODUCT_PACKAGES += \
     com.stericsson.hardware.fm \
     com.stericsson.hardware.fm.xml \
-    FmRadio
+    FMRadio
 
 # Key layouts and touchscreen
 PRODUCT_COPY_FILES += \
@@ -190,14 +193,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/keypad-pmic-fuji.kl:system/usr/keylayout/keypad-pmic-fuji.kl \
     $(LOCAL_PATH)/config/pmic8058_pwrkey.kl:system/usr/keylayout/pmic8058_pwrkey.kl \
     $(LOCAL_PATH)/config/simple_remote.kl:system/usr/keylayout/simple_remote.kl \
-    $(LOCAL_PATH)/config/simple_remote_appkey.kl:system/usr/keylayout/simple_remote_appkey.kl \
-    $(LOCAL_PATH)/config/Vendor_0583_Product_A000.kl:system/usr/keylayout/Vendor_0583_Product_A000.kl
-
-# Ramdisk recovery support
-PRODUCT_COPY_FILES += \
-    device/sony/hikari/recovery/bootrec-device:recovery/root/etc/bootrec-device \
-    device/sony/hikari/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
-    device/sony/hikari/recovery/rebootrecovery.sh:recovery/root/sbin/rebootrecovery.sh
+    $(LOCAL_PATH)/config/simple_remote_appkey.kl:system/usr/keylayout/simple_remote_appkey.kl
 
 # Software
 PRODUCT_PACKAGES += \
@@ -208,12 +204,14 @@ PRODUCT_PACKAGES += \
     Stk
 
 PRODUCT_PACKAGES += \
-    busybox \
-    extract_elf_ramdisk
+    FujiLayout \
+    FileManager
 
 PRODUCT_PACKAGES += \
-    FujiLayout \
-    fileman
+    busybox
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/config/logo.rle:root/logo.rle
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 

@@ -3,6 +3,13 @@
 # system.prop for hikari
 #
 
+# zram 
+sys.zram.size=134217728
+sys.zram.enable=true
+
+# lightbar
+sys.lightbar.enable=true
+
 # Notify the system that the RIL only signals once
 ro.telephony.call_ring.multiple=false
 
@@ -23,39 +30,28 @@ persist.actionsafe.maxwidth=20
 persist.actionsafe.maxheight=20
 keyguard.no_require_sim=1
 
-# Disable LTE
-#telephony.lteOnCdmaDevice=0
-#telephony.lteOnGsmDevice=0
+telephony.lteOnCdmaDevice=0
 
-# Display
-ro.sf.lcd_density=320
+
 debug.sf.hw=1
 persist.hwc.mdpcomp.enable=1
 debug.composition.type=dyn
 debug.mdpcomp.maxpermixer=4
 debug.mdpcomp.idletime=-1
 debug.hwc.dynThreshold=1.9
+
 dev.pm.dyn_samplingrate=1
-ro.ril.hsxpa=1
-ro.ril.gprsclass=10
 
-# hwui
-ro.hwui.text_cache_width=2048
-
-# HDMI Fix
-ro.hdmi.enable=true
-lpa.decode=false
-
-# Limit to 720p, remove for enable 1080p HDMI
 hw.hdmi.limit_to_720p=1
-hw.hdmi.resolution=4
+hw.hdmi.resolution=-1
 
-# System props for opengles version
+#
+# system prop for opengles version
+#
 # 131072 is decimal for 0x20000 to report version 2
-# 196608 is decimal for 0x30000 to report version 3
 ro.opengles.version=131072
 
-# Wifi
+# hardware/libhardwarey_legacy/wifi have fuji patch. Need them
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=15
 
@@ -63,11 +59,14 @@ wifi.supplicant_scan_interval=15
 ro.semc.sols.product-code=97
 ro.semc.sols.company-code=5
 
+ro.hdmi.enable=true
+lpa.decode=false
+
 # New added in msm8660_surf
 use.non-omx.mp3.decoder=true
 lpa.use-stagefright=true
 
-# System props for the MM modules
+#system props for the MM modules
 media.stagefright.enable-player=true
 media.stagefright.enable-http=true
 media.stagefright.enable-fma2dp=false
@@ -79,12 +78,12 @@ encoder.video.profile=high
 mmp.enable.3g2=true
 
 #
-# System props for the data modules
+# system props for the data modules
 #
 ro.use_data_netmgrd=true
 persist.data_netmgrd_nint=3
 
-# System props for time-services
+#system props for time-services
 persist.timed.enable=true
 
 # System props for audio
@@ -106,6 +105,9 @@ ro.nfc.vendor.name=nxp
 # System prop for sending transmit power request to RIL during WiFi hotspot on/off
 #
 ro.ril.transmitpower=true
+
+# hwui
+ro.hwui.text_cache_width=2048
 
 # It is changed to true in msm8660_surf
 # Change it back to false according to blue
@@ -133,4 +135,24 @@ net.nw.cache.weightadvstep=3600000
 net.nw.cache.orderby=weight
 stathub.enabled=0
 
-ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+#
+# ADDITIONAL_BUILD_PROPERTIES
+#
+dalvik.vm.dex2oat-flags=--no-watch-dog
+keyguard.no_require_sim=true
+ro.vendor.extension_library=/system/lib/libqc-opt.so
+dalvik.vm.dexopt-flags=m=y
+dalvik.vm.heapstartsize=8m
+dalvik.vm.heapgrowthlimit=64m
+dalvik.vm.heapsize=256m
+dalvik.vm.heaputilization=0.25
+dalvik.vm.heapidealfree=8388608
+dalvik.vm.heapconcurrentstart=2097152
+dalvik.vm.stack-trace-file=/data/anr/traces.txt
+ro.sf.lcd_density=320
+ro.com.google.clientidbase=android-sonyericsson
+ro.com.google.clientidbase.ms=android-sonymobile
+ro.ril.hsxpa=1
+ro.ril.gprsclass=10
+ro.usb.pid_suffix=176
+net.bt.name=Android
