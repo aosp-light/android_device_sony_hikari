@@ -14,7 +14,7 @@ echo 400 > $dev/btn_trig_level
 dev=/sys/bus/i2c/devices/3-0054/
 val_cycle=1
 val_nburst=8
-val_freq=2
+val_freq=1
 val_threshold=4
 val_filter=2
 
@@ -37,10 +37,16 @@ echo $val_filter > $dev/filter  # RFilter. Valid range is 0 - 3.
 
 # LMU AS3676 Configuration
 dev=/sys/class/leds
-echo 1,80,255,5,16,9,16 > $dev/lcd-backlight/als/curve  # ALS curve for group1
+echo 1,255,255,255,255,255,255 > $dev/lcd-backlight/als/curve  # ALS curve for group1
 echo 1,0,0,0 > $dev/lcd-backlight/als/params  #[gain],[filter_up],[filter_down],[offset]
 echo 1 > $dev/lcd-backlight/als/enable  #Sensor on/off. 1 = on, reg 90h
 echo 3000 > $dev/button-backlight/max_current
 
 # TI BQ275xx firmware loader
 bq275xx_fwloader
+
+# bma250 motion
+dev=/sys/class/input/input6
+echo 0 0 0 20 > $dev/tap_param
+#echo 130 > $dev/tap_mode
+echo 3 48 > $dev/slope_param
